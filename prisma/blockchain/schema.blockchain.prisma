@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/blockchain"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_BLOCKCHAIN")
+}
+
+model Transaction {
+  id              Int      @id @default(autoincrement())
+  uuid            String   @unique @default(uuid())
+  network         String
+  block           String   @map("block")
+  transactionHash String   @unique @map("transaction_hash")
+  transactionFee  String   @map("transaction_fee")
+  symbolFrom      String   @map("symbol_from")
+  symbolTo        String   @map("symbol_to")
+  amountFrom      String   @map("amount_from")
+  amountTo        String   @map("amount_to")
+  addressFrom     String   @map("address_from")
+  addressTo       String   @map("address_to")
+  timestamp       DateTime
+  status          String
+  status2         String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("transactions")
+}

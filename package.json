@@ -17,7 +17,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "postinstall": "prisma generate --schema=./prisma/base/schema.base.prisma && prisma generate --schema=./prisma/blockchain/schema.blockchain.prisma",
+    "prisma:dev:base": "prisma migrate dev --schema=./prisma/base/schema.base.prisma",
+    "prisma:dev:blockchain": "prisma migrate dev --schema=./prisma/blockchain/schema.blockchain.prisma",
+    "prisma:seed:base": "ts-node ./prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
