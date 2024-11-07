@@ -31,7 +31,7 @@ export class ProcessService {
     yield* this.getTransactions(page + 1);
   }
 
-  @OnEvent('start')
+  @OnEvent('process:start')
   async handler() {
     console.time('[PROCESS_SERVICE]');
     let totalItens = 0;
@@ -59,6 +59,7 @@ export class ProcessService {
     console.timeEnd('[READ_TRANSACTIONS]');
   }
 
+  @OnEvent('process:reset')
   async reset() {
     console.time('[RESET_TRANSACTIONS]');
     await this.prismaBlockchainService.transaction.deleteMany();

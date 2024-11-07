@@ -1,16 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
-import { ProcessService } from './process.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Controller('process')
 export class ProcessController {
-  constructor(private readonly processService: ProcessService) {}
+  constructor(private readonly event: EventEmitter2) {}
   @Get()
   async process() {
-    return this.processService.handler();
+    this.event.emit('process:start');
   }
 
   @Get('reset')
   async reset() {
-    return this.processService.reset();
+    this.event.emit('process:reset');
   }
 }
