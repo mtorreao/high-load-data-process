@@ -8,4 +8,9 @@ export class ProcessController {
   async process() {
     return this.processService.handler();
   }
+
+  @Get('reset')
+  async reset() {
+    return this.processService.reset();
+  }
 }
